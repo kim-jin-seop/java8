@@ -155,3 +155,62 @@ java8에서 추가된 자바의 기능들을 알아보기
     - 스코프가 다르다. 로컬과 익명의 경우 자기 자신의 내부의 스코프를 따로 보기 때문에 외부 변수와 동일한 이름의 변수를 사용할 수 있고, 사용한다면 내부에 선언된 변수를 쓸 것이다.
     - 하지만 람다의 경우 스코프가 자신을 선언한 위치에 포함된다. 즉 필드에 선언했다면 필드, 메소드에 선언했다면 메소드와 동일한 스코프를 가진다. 따라서, 위 경우 baseNumber를 선언할 수 없다.
   
+- ### 메소드 레퍼런스
+  ```java
+  public class Greeting {
+    private String name;
+
+    public Greeting() {
+    }
+
+    public Greeting(String name){
+        this.name = name;
+    }
+
+    public String hello(String name) {
+        return "hello " + name;
+    }
+
+    public static String hi(String name){
+        return "hi" + name;
+    }
+  }
+  ```
+  이번 메소드 레퍼런스를 위해 클래스를 하나 구현하였다. 클래스에는 스태틱 메소드, 인스턴스메소드, 생성자들이 있다.
+  메소드를 참조하는 이유는 동일한 역할을 수행하는 메소드를 따로 구현할 필요없이 재사용하기 위해서 이다.
+  - #### static 메소드
+  ```java
+  UnaryOperator<String> hi = Greeting::hi;
+  ```
+  static 메소드의 경우 클래스이름::메소드이름 으로 가져올 수 있다. 이 때 사용하는 ::이 메소드를 참조하기 위해 사용되는 문법이다.
+  
+  - #### instance 메소드
+  ```java
+  Greeting greeting = new Greeting();
+  UnaryOperator<String> hello = greeting::hello;
+  ```
+  instance 메소드를 사용하기 위해서는 객체를 생성해야한다. 그 생성한 객체로 ::를 활용해 메소드를 참조할 수 있다.
+  
+  - #### 생성자 참조
+  생성자를 참조하는 경우에는 입력값은 파라미터 결과값은 그 클래스로 표현이 된다.
+    - 파라미터가 없는 경우
+      ```java
+      Supplier<Greeting> newGreeting = Greeting::new;
+      newGreeting.get(); //객체를 생성
+      ```
+      클래스의 이름::new 로 생성자를 참조할 수 있다.
+  
+    - 파라미터가 있는 경우
+      ```java
+      Function<String, Greeting> newGreeting2 = Greeting::new;
+      newGreeting2.apply("Jin Seop");
+      ```
+      파라미터가 없는 경우와 동일하게 참조를 한다. 하지만 function으로 string을 하나 받기로 하였으므로 apply로 사용 시 파라미터를 받아야한다.
+      
+  - #### 임의의 객체의 인스턴스 레퍼런스
+    ```java
+    String[] names = {"a", "b", "c"};
+    Arrays.sort(names, String::compareToIgnoreCase);
+    ```
+  임의의 객체의 인스턴스도 위처럼 접근할 수 있다.
+  참고로 Arrays.sort의 2번째 인자로 Comparator를 받는다. 이 때 Comparator는 compare이라는 추상메소드를 하나 갖는 Funcational Interface로 람다로 사용이 가능하다.

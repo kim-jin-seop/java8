@@ -1,0 +1,11 @@
+session1/Foo.java
+ session1.Foo
+ session1.Foo$1
+ session1.Foo$1LocalClass
+ session1.Foo$2
+session1/Greeting.java
+ session1.Greeting
+hello/HelloWorld.java
+ hello.HelloWorld
+session1/RunSomething.java
+ session1.RunSomething
