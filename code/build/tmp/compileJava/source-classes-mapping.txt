@@ -1,2 +1,7 @@
 hello/HelloWorld.java
  hello.HelloWorld
+session1/RunSomething.java
+ session1.RunSomething
+session1/Foo.java
+ session1.Foo
+ session1.Foo$1
