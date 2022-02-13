@@ -5,7 +5,7 @@ import java.util.function.*;
 public class Foo {
     public static void main(String[] args) {
 
-        /*
+        /**
         람다로 함수형인터페이스 정의하기
         * */
         // 과거 (익명 내부 클래스)
@@ -25,7 +25,7 @@ public class Foo {
             return number;
         };
 
-        /*
+        /**
         * java에서 정의되어있는 함수형 인터페이스
         * */
         //1. Function : <T,R> : T타입의 데이터를 받아서 R로 return 해줌, 한줄로 줄일 경우 return 생략 가능
@@ -63,9 +63,44 @@ public class Foo {
         Function<Integer, Integer> plus10 = (i) -> i + 10;
         UnaryOperator<Integer> unaryPlus10 = (i) -> i + 10;
 
-        //BinaryOperator : <T> : 입력이 2개가 오고 그에 대한 출력이 1개인데 모두 타입이 T로 같음
+        //7. BinaryOperator : <T> : 입력이 2개가 오고 그에 대한 출력이 1개인데 모두 타입이 T로 같음
         BiFunction<Integer,Integer,Integer> biPlus = (a,b) -> a+b;
         BinaryOperator<Integer> binaryPlus = (a,b) -> a + b;
-        
+
+
+    }
+
+    /**
+     * 람다 표현식
+     * 익명클래스, 로컬클래스 vs 람다
+     * 공통점
+     * -> 외부 변수를 참조 가능, 바뀌는 로컬 변수는 참조를 못함.
+     *
+     * 차이점
+     * -> 로컬과 익명과 람다는 스코프의 차이가 있음
+     * 로컬과 익명은 스코프가 자기가 생성한 곳 내부
+     * 람다는 스코프가 품고있는 위치와 동일하다.
+     */
+    private void run(){
+        int baseNumber = 10;
+        // 로컬 클래스
+        class LocalClass{
+            void printBaseNumber(){
+                int baseNumber = 11;
+                System.out.println(baseNumber);
+            }
+        }
+
+        // 익명 클래스
+        Consumer<Integer> integerConsumer = new Consumer<Integer>() {
+            @Override
+            public void accept(Integer baseNumber) {
+                System.out.println(baseNumber);
+            }
+        };
+
+        // 람다
+        IntConsumer printInt = (i) -> System.out.println(baseNumber);
+        printInt.accept(10);
     }
 }
