@@ -1,5 +1,6 @@
 package session1;
 
+import java.util.Arrays;
 import java.util.function.*;
 
 public class Foo {
@@ -67,7 +68,30 @@ public class Foo {
         BiFunction<Integer,Integer,Integer> biPlus = (a,b) -> a+b;
         BinaryOperator<Integer> binaryPlus = (a,b) -> a + b;
 
+        /**
+         * 메소드 레퍼런스
+         * 같은 역할을 하는 메소드를 참조하여 사용하는 방법
+         */
+        //메소드 레퍼런스 -> static 메소드를 사용하는 경우 -> 클래스로 직접 접근해서 가져온다.
+        UnaryOperator<String> hi = Greeting::hi;
 
+        //메소들 레퍼런스 -> instance 메소드를 사용하는 경우 -> 객체 생성해서 그 객체의 메소드를 실행한다.
+        Greeting greeting = new Greeting();
+        UnaryOperator<String> hello = greeting::hello;
+
+        //생성자 레퍼런스(입력값 -> 생성자의 파라미터, 결과값-> 생성되는 클래스)
+        Supplier<Greeting> newGreeting = Greeting::new;
+        newGreeting.get(); //객체를 생성
+
+        //생성자 레퍼런스2 (입력값이 존재하는 경우) -> 코드는 같지만 서로 다른 생성자를 참조함.
+        Function<String, Greeting> newGreeting2 = Greeting::new;
+        newGreeting2.apply("Jin Seop");
+
+        //임의의 객체의 인스턴스 레퍼런스
+        String[] names = {"a", "b", "c"};
+        Arrays.sort(names, String::compareToIgnoreCase);
+        //참고로 Comparator 클래스가 compare이라는 추상메소드를 하나만 가지고 있는 functional Interface로 구현되어 있어서, 람다 사용 가능
+        //compare(o1,o2), return : Integer
     }
 
     /**
