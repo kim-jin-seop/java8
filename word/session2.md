@@ -45,3 +45,100 @@ public static void main(String[] args) {
 }
 ```
 static method 구현 시 인터페이스의 이름으로 접근이 가능하게 된다.
+
+### Iterable의 기본 메소드
+Iterfable의 대표적인 기본 메소드로 foreach()와 spliterator()이 있다.
+
+#### foreach()
+- Collection :foreach()  
+- foreach는 파라미터로 Consumer functional interface를 받는다.  
+- consumer이기 때문에 값 하나를 받아서 소모를하게 된다.  
+
+```java
+        List<String> names = new ArrayList<>();
+        names.add("kim jin seop");
+        names.add("java8");
+        names.add("spring");
+        names.add("jpa");
+
+        //리스트에 저장된 이름을 모두 출력해주기
+        names.forEach((s) -> System.out.println(s));
+
+        // 메소드 레퍼런스를 활용해서 구현할 수 있음
+        System.out.println("<< 메소드 레퍼런스 활용해서 구현 >>");
+        names.forEach(System.out::println);
+```
+
+#### spliterable() 
+- 동일하게 foreach처럼 동작할 수 있다.  
+- 데이터를 쪼개서 사용할 수 있게 된다. 절반으로 쪼개어 진다.  
+- 쪼개는 방법은 trySplit()을 사용하여준다. 데이터의 개수의 절반으로 쪼개어 준다.  
+- tryAdvance를 활용해 실행할 수 있는데, 만약 다음 값이 있으면 true 없으면 false로 while을 사용해 순회할 수 있다.  
+- 혹은 forEachRemaining()을 활용하여 모든 값들을 순회할 수 있다.(tryAdvance를 사용했다면 남은 구간을 모두 순회한다.)  
+- 순서가 뒤 바뀌기 때문에 순서에 의미없는 메소드에 적용할 수 있다.
+
+```java
+        //spliterator 정의
+        Spliterator<String> sp1 = names.spliterator();
+        //trySplit으로 절반 쪼개기(데이터를 반으로 쪼개어줌)
+        //sp1에 있던 데이터의 절반을 가져오고 sp1에 절반 데이터가 옮겨짐
+        Spliterator<String> sp2 = sp1.trySplit();
+
+        //순회 방법1 forEachRemaining으로 남은 것 모두 순회
+        sp1.forEachRemaining(System.out::println);
+        //순회방법2 tryAdvance 사용
+        while (sp2.tryAdvance(System.out::println));
+```
+
+### Collection의 기본 메소드
+Collection에서 제공하는 다양한 기본 메소드에 대해 알아보겠다.  
+
+#### stream()
+- Collection의 대표적인 기본 메소드로 strem()이 있다.
+- 매우 자주쓰이는 기본 메소드이다.
+- filter()로 걸러서 count()로 갯수를 셀수도 있고, list나 set으로 반환받을 수 있다.
+- 다음에 자세히 알아보도록 하겠다.
+```java
+        //k로 시작하는 값들만 뽑아서 출력
+        names.stream()
+                .filter((s) -> s.startsWith("k"))
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
+```
+
+#### removeIf()
+- 파라미터로 Predicate을 받으며 일치하는 조건의 값을 지워주는 역할을 수행한다.
+- Predicate의 조건이 일치하는 값들을 모두 지워준다.
+```java
+        names.removeIf(s -> s.equals("jpa"));
+        names.forEach(System.out::println);
+```
+
+### Comparator의 기본 메소드
+comparator는 정렬을 할 때 주로 사용해주는 Functional Interface이다.제공해주는 기본메소드를 알아보자.
+
+#### reversed()
+- 정렬을 역순으로 해주는 기본메소드이다.
+- 정렬을 역순으로 하고 싶다면 compareToIgnoreCase에 reversed()를 해주면 된다. 여기서 사용되는 reversed()는 default 메소드이다.
+
+```java
+        Comparator<String> compareToIgnoreCase = String::compareToIgnoreCase;
+        //정렬하기
+        names.sort(compareToIgnoreCase);
+        //역순으로 정렬하기
+        names.sort(compareToIgnoreCase.reversed());
+```
+
+#### thenComparing()
+- 정렬을 할 때 추가 조건을 부여할 때 사용한다.
+```java
+        Comparator<String> ci = String::compareToIgnoreCase;
+        names.sort(ci.thenComparing(Comparator.reverseOrder()));
+```
+
+### Comparator의 static 메소드
+정렬을 위하여 다양한 static메소드를 제공하여준다.
+- `naturalOrder()` : 오름차순으로 정렬할 때 이용한다. 파라미터로 들어가는 값은 없으며 반환형은 Comparator이다.
+- `reverseOrder()` : 내림차순으로 정렬할 때 사용한다. 파라미터로 들어가는 값은 없으며 반환형은 Comparator이다.
+- `nullsFirst()` : null을 처음으로 오게 정렬할 때 사용한다. 파라미터로 Comparator 받는다(naturalOrder()나 reverseOrder()를 사용하면 된다.)
+- `nullsLast()` : null을 뒤로 정렬해줄 때 사용한다. 파라미터로 Comparator 받는다(naturalOrder()나 reverseOrder()를 사용하면 된다.)
