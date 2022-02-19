@@ -9,3 +9,9 @@ hello/HelloWorld.java
  hello.HelloWorld
 session1/RunSomething.java
  session1.RunSomething
+session2/Foo.java
+ session2.Foo
+session2/ImplFoo.java
+ session2.ImplFoo
+session2/App.java
+ session2.App
