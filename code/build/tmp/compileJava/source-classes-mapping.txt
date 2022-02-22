@@ -15,5 +15,7 @@ session1/RunSomething.java
  session1.RunSomething
 session2/App.java
  session2.App
+session3/OnlineClass.java
+ session3.OnlineClass
 session3/App.java
  session3.App
