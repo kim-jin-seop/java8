@@ -18,6 +18,6 @@ public class App{
          * 3. Collection을 optional로 감싸지 않아도 됨.
          */
         OnlineClass springBoot = new OnlineClass(1, "spring boot", true);
-        
+
     }
 }
