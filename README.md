@@ -7,3 +7,4 @@ Java8의 새로운 기능을 공부하자!
 [3. Stream](/word/session3.md)   
 [4. Optional](/word/session4.md)   
 [5. Thread의 기초](/word/session5.md)   
+[6. CompletableFuture](/word/session6.md)   
