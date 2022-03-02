@@ -188,12 +188,3 @@ ExecutorService ex = Executors.newFixedThreadPool(3);
        String s = ex.invokeAny(Arrays.asList(hello, world, nice));
 ```
 - invokeAny()로 처리를 하게 되면 Callable중 하나라도 완료가 되면 그 결과 값을 반환받게 된다.
-
-
-
-
-
-
-
-
-
