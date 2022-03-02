@@ -1,3 +1,4 @@
+## Optional
 ## Optional이란?
 - null을 리턴받아 사용하면 nullPointException이 발생한다.
 - if(xx != null)와 같은 조건문으로 null을 체크해서 사용하면 해결할 수 있음. 하지만 매번 그렇게 하기가 번거로움. 

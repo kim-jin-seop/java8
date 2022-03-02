@@ -5,8 +5,8 @@ session1/Foo.java
  session1.Foo$2
 session3/OnlineClass.java
  session3.OnlineClass
-session1/RunSomething.java
- session1.RunSomething
+session5/App.java
+ session5.App
 session4/Progress.java
  session4.Progress
 session3/App.java
@@ -25,5 +25,7 @@ session1/Greeting.java
  session1.Greeting
 session2/App.java
  session2.App
-session5/App.java
- session5.App
+session1/RunSomething.java
+ session1.RunSomething
+session6/App.java
+ session6.App
