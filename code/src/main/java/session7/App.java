@@ -69,16 +69,16 @@ public class App {
         System.out.println(hello.thenCombine(world,(h,w) ->h + " " + w).get());
 
         //두개의 순서가 없는경우 -> 모든 경우를 수행할 때
-        List<CompletableFuture<String>> futures = Arrays.asList(hello, world);
+        List<CompletableFuture> futures = Arrays.asList(hello, world);
         CompletableFuture[] futuresArr = {hello, world};
 
-        CompletableFuture<List<String>> results = CompletableFuture.allOf(futuresArr)
+        CompletableFuture<List<Object>> results = CompletableFuture.allOf(futuresArr)
                 .thenApply(s -> {
                     return futures.stream()
                             .map(CompletableFuture::join)
                             .collect(Collectors.toList());
                 });
-        results.get().forEach(System.out::println);
+        List<Object> resultObject = results.get();
 
         //모든 경우중 가장 빠른거 가져오기
         CompletableFuture<Void> future3 = CompletableFuture.anyOf(hello, world).thenAccept((s) -> {
