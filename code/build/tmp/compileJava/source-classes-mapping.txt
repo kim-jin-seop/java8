@@ -29,3 +29,5 @@ session1/RunSomething.java
  session1.RunSomething
 session6/App.java
  session6.App
+session7/App.java
+ session7.App
