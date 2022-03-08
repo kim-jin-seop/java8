@@ -31,3 +31,11 @@ session6/App.java
  session6.App
 session7/App.java
  session7.App
+session8/ChickenContainer.java
+ session8.ChickenContainer
+session8/App.java
+ session8.App
+session8/Chicken.java
+ session8.Chicken
+session9/App.java
+ session9.App
