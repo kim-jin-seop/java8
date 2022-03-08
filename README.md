@@ -9,3 +9,4 @@ Java8의 새로운 기능을 공부하자!
 [5. Date/Time API](/word/session5.md)  
 [6. Thread의 기초](/word/session6.md)    
 [7. CompletableFuture](/word/session7.md)   
+[8. Annotation의 변화](/word/session8.md)
